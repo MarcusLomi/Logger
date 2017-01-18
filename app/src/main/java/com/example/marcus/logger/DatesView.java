@@ -1,5 +1,6 @@
 package com.example.marcus.logger;
 
+import android.app.AlertDialog;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
@@ -8,6 +9,8 @@ import android.support.v7.widget.Toolbar;
 import android.view.View;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.widget.DatePicker;
+import android.widget.ListView;
 
 public class DatesView extends AppCompatActivity {
 
@@ -17,15 +20,25 @@ public class DatesView extends AppCompatActivity {
         setContentView(R.layout.activity_dates_view);
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
-
         FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.logDate);
+        ListView lv = (ListView)findViewById(R.id.datesListView);
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
+
+                AlertDialog.Builder builder = new AlertDialog.Builder(DatesView.this);
+                DatePicker picker = new DatePicker(DatesView.this);
+                builder.setTitle("Create Year");
+                builder.setView(picker);
+                builder.setNegativeButton("Cancel", null);
+                builder.setPositiveButton("Set", null);
+                builder.show();
+
+                Snackbar.make(view, "hOI "+picker.getYear(), Snackbar.LENGTH_LONG)
                         .setAction("Action", null).show();
             }
         });
+
     }
 
     @Override
