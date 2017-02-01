@@ -32,6 +32,16 @@ public class User {
         return true;
     }
 
+    public boolean addDate(Date d){
+        if(dates.contains(d)) {
+            return false;
+        }
+        else{
+            this.dates.add(d);
+        }
+        return true;
+    }
+
     public boolean removeDate(Calendar c){
         if(this.dates.contains(c)){
             this.dates.remove(c);
@@ -46,6 +56,16 @@ public class User {
             return true;
         }
         return false;
+    }
+
+    public String[] getDatesStringArray(){
+        String[] result = new String[this.dates.size()];
+        int i = 0;
+        for(Date d: this.dates){
+            result[i]=d.toString();
+            i++;
+        }
+        return result;
     }
 
 

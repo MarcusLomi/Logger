@@ -10,13 +10,25 @@ public class Date {
 
     private Calendar cal;
     private String date;
+    private int day;
+    private int month;
+    private int year;
 
     public Date(Calendar cal){
         this.cal = cal;
     }
 
     public String toString(){
-        return this.cal.toString();
+        String result="";
+        String[] months= {"Jan ", "Feb ", "Mar ", "Apr ", "May ",
+                            "Jun ", "Jul ", "Aug ", "Sep ", "Oct ","Nov ","Dec "};
+        result=months[this.month]+this.day+", "+this.year;
+        return result;
+    }
+    public Date(int day, int month, int year){
+        this.day=day;
+        this.month=month;
+        this.year=year;
     }
 
 }

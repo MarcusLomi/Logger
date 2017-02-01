@@ -1,16 +1,27 @@
 package com.example.marcus.logger;
 
 import android.app.AlertDialog;
+import android.app.DatePickerDialog;
+import android.content.DialogInterface;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
+import android.util.Log;
 import android.view.View;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.widget.ArrayAdapter;
 import android.widget.DatePicker;
 import android.widget.ListView;
+import android.widget.Toast;
+
+import com.example.marcus.logger.Model.Date;
+
+import java.util.Calendar;
+
+import static com.example.marcus.logger.R.layout.date_item;
 
 public class DatesView extends AppCompatActivity {
 
@@ -27,18 +38,43 @@ public class DatesView extends AppCompatActivity {
             public void onClick(View view) {
 
                 AlertDialog.Builder builder = new AlertDialog.Builder(DatesView.this);
-                DatePicker picker = new DatePicker(DatesView.this);
-                builder.setTitle("Create Year");
+                final DatePicker picker = new DatePicker(DatesView.this);
+                builder.setTitle("Pick the date");
                 builder.setView(picker);
                 builder.setNegativeButton("Cancel", null);
-                builder.setPositiveButton("Set", null);
+                builder.setPositiveButton("Set", new DialogInterface.OnClickListener() {
+                    @Override
+
+                    public void onClick(DialogInterface dialogInterface, int which) {
+                        Date d = new Date(picker.getDayOfMonth(),picker.getMonth(),picker.getYear());
+                        Log.d("DATE",d.toString());
+                        Toast.makeText(DatesView.this, "New Date Added: "+ d.toString(), Toast.LENGTH_SHORT).show();
+
+                    }
+                });
+
+                picker.updateDate(picker.getYear(),picker.getMonth(),picker.getDayOfMonth());
                 builder.show();
 
-                Snackbar.make(view, "hOI "+picker.getYear(), Snackbar.LENGTH_LONG)
-                        .setAction("Action", null).show();
+
+                //refresh();
             }
         });
 
+        // the call back received when the user "sets" the date in the dialog
+
+
+    }
+
+    public void updateDisplay(){
+
+    }
+
+    public void refresh(){
+        ListView lv = (ListView) findViewById(R.id.datesListView);
+        String allDates[]={"Testing"};
+        ArrayAdapter<String> ad = new ArrayAdapter<>(this, date_item,allDates);
+        lv.setAdapter(ad);
     }
 
     @Override
