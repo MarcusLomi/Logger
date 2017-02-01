@@ -15,9 +15,12 @@ import android.view.MenuItem;
 import android.widget.ArrayAdapter;
 import android.widget.DatePicker;
 import android.widget.ListView;
+import android.widget.TextView;
 import android.widget.Toast;
 
+import com.example.marcus.logger.Model.Data;
 import com.example.marcus.logger.Model.Date;
+import com.example.marcus.logger.Model.User;
 
 import java.util.Calendar;
 
@@ -25,14 +28,20 @@ import static com.example.marcus.logger.R.layout.date_item;
 
 public class DatesView extends AppCompatActivity {
 
+    private static User currentUser;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+        Data.init(this);
+        System.out.println("Logged in successfully: " + Data.getInstance().getUser().getName());
+        currentUser = Data.getInstance().getUser();
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_dates_view);
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
         FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.logDate);
         ListView lv = (ListView)findViewById(R.id.datesListView);
+        updateDisplay();
+
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -47,9 +56,11 @@ public class DatesView extends AppCompatActivity {
 
                     public void onClick(DialogInterface dialogInterface, int which) {
                         Date d = new Date(picker.getDayOfMonth(),picker.getMonth(),picker.getYear());
+                        currentUser.addDate(d);
+                        Data.getInstance().save();
                         Log.d("DATE",d.toString());
                         Toast.makeText(DatesView.this, "New Date Added: "+ d.toString(), Toast.LENGTH_SHORT).show();
-
+                        updateDisplay();
                     }
                 });
 
@@ -67,13 +78,20 @@ public class DatesView extends AppCompatActivity {
     }
 
     public void updateDisplay(){
+        TextView total = (TextView)findViewById(R.id.totalDatesTextView);
+        if(currentUser!=null){
+            total.setText("Total Count: "+Data.getInstance().getUser().getDates().size());
+            //total.setText("HI");
+        }
 
+        //Data.getInstance().getUser().getDates().size();
+        //total.setText(currentUser.getDates().size());
     }
 
     public void refresh(){
         ListView lv = (ListView) findViewById(R.id.datesListView);
         String allDates[]={"Testing"};
-        ArrayAdapter<String> ad = new ArrayAdapter<>(this, date_item,allDates);
+        ArrayAdapter<String> ad = new ArrayAdapter<>(this,R.layout.date_item,allDates);
         lv.setAdapter(ad);
     }
 

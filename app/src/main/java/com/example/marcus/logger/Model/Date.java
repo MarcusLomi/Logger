@@ -1,13 +1,15 @@
 package com.example.marcus.logger.Model;
 
+import java.io.Serializable;
 import java.util.Calendar;
 
 /**
  * Created by Marcus on 1/18/2017.
  */
 
-public class Date {
+public class Date implements Serializable {
 
+    private static final long serialVersionUID = 1678758574943628287L;
     private Calendar cal;
     private String date;
     private int day;

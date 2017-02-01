@@ -1,5 +1,6 @@
 package com.example.marcus.logger.Model;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.List;
@@ -8,12 +9,14 @@ import java.util.List;
  * Created by Marcus on 1/18/2017.
  */
 
-public class User {
+public class User implements Serializable{
 
+    private static final long serialVersionUID = 4138758574948434587L;
     private String name;
     private ArrayList<Date> dates;
 
     public User(String s){
+        this.dates = new ArrayList<Date>();
         this.name=s;
     }
 
@@ -32,13 +35,13 @@ public class User {
         return true;
     }
 
+    public String getName(){
+        return this.name;
+    }
+
     public boolean addDate(Date d){
-        if(dates.contains(d)) {
-            return false;
-        }
-        else{
-            this.dates.add(d);
-        }
+        this.dates.add(d);
+
         return true;
     }
 
