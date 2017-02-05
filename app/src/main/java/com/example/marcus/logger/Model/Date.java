@@ -10,15 +10,11 @@ import java.util.Calendar;
 public class Date implements Serializable {
 
     private static final long serialVersionUID = 1678758574943628287L;
-    private Calendar cal;
-    private String date;
+    private String time;
+    private double objectId;
     private int day;
     private int month;
     private int year;
-
-    public Date(Calendar cal){
-        this.cal = cal;
-    }
 
     public String toString(){
         String result="";
@@ -27,10 +23,21 @@ public class Date implements Serializable {
         result=months[this.month]+this.day+", "+this.year;
         return result;
     }
+
+    public String getTime(){
+        return this.time;
+    }
+
+    public void setTime(String time){
+        this.time = time;
+    }
+
     public Date(int day, int month, int year){
+        this.objectId=Math.random();
         this.day=day;
         this.month=month;
         this.year=year;
+        this.time="Oh hi mark";
     }
 
 }

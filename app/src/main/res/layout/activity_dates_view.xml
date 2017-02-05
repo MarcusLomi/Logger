@@ -38,4 +38,18 @@
 
     <include layout="@layout/content_dates_view" />
 
+    <android.support.design.widget.FloatingActionButton
+        android:layout_width="50dp"
+        android:layout_height="wrap_content"
+        android:clickable="true"
+        app:fabSize="mini"
+        app:srcCompat="@android:drawable/ic_delete"
+        android:id="@+id/deleteConfirmButton"
+        app:layout_anchorGravity="center_vertical|center_horizontal"
+        android:layout_gravity="bottom|right"
+        app:backgroundTint="@android:color/holo_red_light"
+        android:tint="@android:color/white"
+        android:layout_marginBottom="16dp"
+        android:layout_marginRight="65dp" />
+
 </android.support.design.widget.CoordinatorLayout>

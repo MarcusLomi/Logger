@@ -24,15 +24,14 @@ public class User implements Serializable{
         return this.dates;
     }
 
-    public boolean addDate(Calendar c){
-        if(dates.contains(c)){
-            return false;
+    public Date[] getDateArray(){
+        Date[] result = new Date[this.dates.size()];
+        int i =0;
+        for(Date d: this.dates){
+            result[i]=d;
+            i++;
         }
-        else{
-            Date d = new Date(c);
-            this.dates.add(d);
-        }
-        return true;
+        return result;
     }
 
     public String getName(){
@@ -45,12 +44,8 @@ public class User implements Serializable{
         return true;
     }
 
-    public boolean removeDate(Calendar c){
-        if(this.dates.contains(c)){
-            this.dates.remove(c);
-            return true;
-        }
-        return false;
+    public void deleteDate(Date d){
+        this.dates.remove(d);
     }
 
     public boolean removeDate(int index){
@@ -71,5 +66,14 @@ public class User implements Serializable{
         return result;
     }
 
+    public String[] getTimesStringArray(){
+        String[] result = new String[this.dates.size()];
+        int i = 0;
+        for(Date d: this.dates){
+            result[i]=d.getTime();
+            i++;
+        }
+        return result;
+    }
 
 }
