@@ -324,7 +324,10 @@ public class DatesView extends AppCompatActivity {
             String[] allDates = Data.getInstance().getUser().getDatesStringArray();
             String[] allTimes = Data.getInstance().getUser().getTimesStringArray();
             total.setText("Total Count: " + Data.getInstance().getUser().getDates().size());
-            recent.setText("Most Recent: "+allDates[allDates.length-1]+" @ "+allTimes[allTimes.length-1]);
+            if(allDates.length!=0){
+                recent.setText("Most Recent: "+allDates[allDates.length-1]+" @ "+allTimes[allTimes.length-1]);
+            }
+
         }
 
     }
